@@ -1,0 +1,112 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mantenimientos - ManteniSoft</title>
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+<header>
+    <h1>ManteniSoft</h1>
+    <p>Programación de mantenimiento preventivo</p>
+</header>
+
+<main>
+    <p><a href="{{ url_for('main.inicio') }}">← Volver al inicio</a></p>
+
+    <section class="welcome">
+        <h2>Programar mantenimiento</h2>
+
+        {% with mensajes = get_flashed_messages(with_categories=true) %}
+            {% for categoria, mensaje in mensajes %}
+                <p class="mensaje {{ categoria }}">{{ mensaje }}</p>
+            {% endfor %}
+        {% endwith %}
+
+        {% if equipos %}
+        <form method="POST">
+
+            <label for="equipo_id">Seleccionar equipo</label>
+            <select id="equipo_id" name="equipo_id" required>
+                <option value="">Seleccione un equipo</option>
+                {% for equipo in equipos %}
+                <option value="{{ equipo.id }}">
+                    {{ equipo.codigo }} - {{ equipo.nombre }}
+                </option>
+                {% endfor %}
+            </select>
+
+            <label for="fecha_programada">Fecha programada</label>
+            <input type="date" id="fecha_programada"
+                   name="fecha_programada" required>
+
+            <label for="descripcion">Descripción de la actividad</label>
+            <textarea id="descripcion" name="descripcion"
+                      maxlength="250" required></textarea>
+
+            <button type="submit">Programar mantenimiento</button>
+        </form>
+        {% else %}
+            <p>Primero debes registrar al menos un equipo.</p>
+            <a href="{{ url_for('main.equipos') }}">Registrar equipos</a>
+        {% endif %}
+    </section>
+
+    <section class="welcome">
+        <h2>Mantenimientos programados</h2>
+
+        {% if mantenimientos %}
+        <div class="tabla-contenedor">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Equipo</th>
+                        <th>Fecha</th>
+                        <th>Descripción</th>
+                        <th>Estado</th>
+                        <th>Acción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for mantenimiento in mantenimientos %}
+                    <tr>
+                        <td>
+                            {{ mantenimiento.equipo.codigo }}
+                            - {{ mantenimiento.equipo.nombre }}
+                        </td>
+                        <td>{{ mantenimiento.fecha_programada }}</td>
+                        <td>{{ mantenimiento.descripcion }}</td>
+                        <td>{{ mantenimiento.estado }}</td>
+                        <td>
+                            {% if mantenimiento.estado == 'Pendiente' %}
+                            <form method="POST"
+                                  action="{{ url_for('main.completar_mantenimiento', id=mantenimiento.id) }}">
+                                <button type="submit">
+                                    Completar
+                                </button>
+                            </form>
+                            {% else %}
+                                Finalizado
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+            <p>No hay mantenimientos programados.</p>
+        {% endif %}
+    </section>
+</main>
+
+<footer>
+    <p>ManteniSoft - Proyecto académico 2026</p>
+</footer>
+
+</body>
+</html>

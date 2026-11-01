@@ -1,0 +1,87 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ManteniSoft - Gestión de Mantenimiento</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+    <header>
+        <h1>ManteniSoft</h1>
+        <p>Sistema de Gestión de Mantenimiento Preventivo</p>
+    </header>
+
+    <main>
+        <section class="welcome">
+            <h2>Bienvenido a ManteniSoft</h2>
+            <p>Administra tus equipos y programa sus mantenimientos preventivos.</p>
+        </section>
+
+<section class="dashboard">
+    <h2>Panel de seguimiento</h2>
+
+    <div class="dashboard-grid">
+
+        <article class="dashboard-card">
+            <h3>Equipos registrados</h3>
+            <p>{{ total_equipos }}</p>
+        </article>
+
+        <article class="dashboard-card">
+            <h3>Mantenimientos programados</h3>
+            <p>{{ total_mantenimientos }}</p>
+        </article>
+
+        <article class="dashboard-card">
+            <h3>Pendientes</h3>
+            <p>{{ pendientes }}</p>
+        </article>
+
+        <article class="dashboard-card">
+            <h3>Completados</h3>
+            <p>{{ completados }}</p>
+        </article>
+
+        <article class="dashboard-card">
+            <h3>Vencidos</h3>
+            <p>{{ vencidos }}</p>
+        </article>
+
+    </div>
+</section>
+<section class="modules">
+
+    <article class="module">
+        <h3>Gestión de equipos</h3>
+        <p>Registra y consulta los equipos de producción.</p>
+        <p><strong>Equipos registrados: {{ total_equipos }}</strong></p>
+        <a href="{{ url_for('main.equipos') }}">Administrar equipos</a>
+    </article>
+
+<article class="module">
+    <h3>Programación</h3>
+    <p>Programa las actividades de mantenimiento.</p>
+    <a href="{{ url_for('main.mantenimientos') }}">
+        Administrar mantenimientos
+    </a>
+</article>
+
+    <article class="module">
+        <h3>Seguimiento</h3>
+        <p>Consulta las actividades pendientes y completadas.</p>
+        <p>Próximamente.</p>
+    </article>
+
+</section>
+
+    </main>
+
+    <footer>
+        <p>ManteniSoft - Proyecto académico 2026</p>
+    </footer>
+
+</body>
+</html>

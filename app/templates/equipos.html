@@ -1,0 +1,90 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de equipos - ManteniSoft</title>
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+<header>
+    <h1>ManteniSoft</h1>
+    <p>Gestión de equipos de mantenimiento</p>
+</header>
+
+<main>
+    <p><a href="{{ url_for('main.inicio') }}">← Volver al inicio</a></p>
+
+    <section class="welcome">
+        <h2>Registrar equipo</h2>
+
+        {% with mensajes = get_flashed_messages(with_categories=true) %}
+            {% for categoria, mensaje in mensajes %}
+                <p class="mensaje {{ categoria }}">{{ mensaje }}</p>
+            {% endfor %}
+        {% endwith %}
+
+        <form method="POST">
+            <label for="codigo">Código del equipo</label>
+            <input type="text" id="codigo" name="codigo"
+                   maxlength="20" required>
+
+            <label for="nombre">Nombre del equipo</label>
+            <input type="text" id="nombre" name="nombre"
+                   maxlength="100" required>
+
+            <label for="area">Área de trabajo</label>
+            <input type="text" id="area" name="area"
+                   maxlength="100" required>
+
+            <label for="fecha_ultimo_mantenimiento">
+                Fecha del último mantenimiento
+            </label>
+            <input type="date" id="fecha_ultimo_mantenimiento"
+                   name="fecha_ultimo_mantenimiento" required>
+
+            <button type="submit">Registrar equipo</button>
+        </form>
+    </section>
+
+    <section class="welcome">
+        <h2>Equipos registrados</h2>
+
+        {% if equipos %}
+        <div class="tabla-contenedor">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Código</th>
+                        <th>Equipo</th>
+                        <th>Área</th>
+                        <th>Último mantenimiento</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for equipo in equipos %}
+                    <tr>
+                        <td>{{ equipo.codigo }}</td>
+                        <td>{{ equipo.nombre }}</td>
+                        <td>{{ equipo.area }}</td>
+                        <td>{{ equipo.fecha_ultimo_mantenimiento }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+            <p>No hay equipos registrados todavía.</p>
+        {% endif %}
+    </section>
+</main>
+
+<footer>
+    <p>ManteniSoft - Proyecto académico 2026</p>
+</footer>
+
+</body>
+</html>
