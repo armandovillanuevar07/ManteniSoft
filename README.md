@@ -146,3 +146,25 @@ Armando Walter Villanueva Rojas
 ## Licencia
 
 Proyecto desarrollado con fines académicos.
+
+
+## Integración continua (GitHub Actions)
+
+El proyecto utiliza GitHub Actions para ejecutar automáticamente las pruebas de software cuando se realizan cambios en las ramas main y develop.
+
+El flujo de integración continua realiza las siguientes actividades:
+
+1. Descarga el código del repositorio.
+2. Configura Python 3.14 en Ubuntu.
+3. Instala las dependencias del proyecto.
+4. Ejecuta las pruebas automatizadas mediante pytest.
+
+### Resultado de integración continua
+
+La primera ejecución del workflow ManteniSoft CI finalizó correctamente en GitHub Actions.
+
+- Entorno: Ubuntu Linux.
+- Python: 3.14.9.
+- pytest: 9.2.0.
+- Pruebas aprobadas: 5 de 5.
+- Estado: Correcto.
