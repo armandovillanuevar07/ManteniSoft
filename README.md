@@ -120,7 +120,17 @@ python -m pytest -v
 ```
 
 El proyecto cuenta actualmente con cinco pruebas automatizadas para verificar la carga del panel principal, el registro de equipos, la programación de mantenimientos, la actualización de estados y los indicadores del sistema.
+### Casos de prueba verificados
 
+| Prueba | Resultado |
+|---|---|
+| Carga de la página principal | Aprobada |
+| Registro de equipos | Aprobada |
+| Programación de mantenimientos | Aprobada |
+| Completar mantenimientos | Aprobada |
+| Indicadores del panel | Aprobada |
+
+**Resultado:** 5 pruebas aprobadas de 5 ejecutadas.
 ## Base de datos
 
 ManteniSoft utiliza SQLite como sistema de almacenamiento. Las tablas se crean automáticamente cuando se inicia la aplicación.
