@@ -1,3 +1,4 @@
+
 import os
 from flask import Flask
 from app.models import db
@@ -6,9 +7,15 @@ from app.models import db
 def create_app(test_config=None):
     app = Flask(__name__, instance_relative_config=True)
 
-    app.config.from_object("config.Config")
+    environment = os.environ.get("FLASK_ENVIRONMENT", "development")
 
-    # Permite utilizar una configuración diferente durante las pruebas.
+    if environment == "production":
+        app.config.from_object("config.ProductionConfig")
+    elif environment == "testing":
+        app.config.from_object("config.TestingConfig")
+    else:
+        app.config.from_object("config.DevelopmentConfig")
+
     if test_config is not None:
         app.config.update(test_config)
 
@@ -23,5 +30,3 @@ def create_app(test_config=None):
         db.create_all()
 
     return app
-
-    
