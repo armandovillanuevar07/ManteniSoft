@@ -12,6 +12,11 @@ __pycache__/
 # Configuración local
 .env
 
+# Archivos de cobertura y pruebas
+.coverage
+htmlcov/
+.pytest_cache/
+
 # Archivos del sistema
 .DS_Store
 

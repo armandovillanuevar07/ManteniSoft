@@ -1,0 +1,103 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seguimiento - ManteniSoft</title>
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+<header>
+    <h1>ManteniSoft</h1>
+    <p>Seguimiento de mantenimiento preventivo</p>
+</header>
+
+<main>
+    <p><a href="{{ url_for('main.inicio') }}">← Volver al inicio</a></p>
+
+    <section class="welcome">
+        <h2>Seguimiento de mantenimientos</h2>
+        <p>Consulta las actividades de mantenimiento y verifica su estado.</p>
+
+        <form method="GET" action="{{ url_for('main.seguimiento') }}">
+            <label for="estado">Filtrar por estado</label>
+
+            <select name="estado" id="estado">
+                <option value="Todos"
+                    {% if filtro_estado == 'Todos' %}selected{% endif %}>
+                    Todos
+                </option>
+
+                <option value="Pendiente"
+                    {% if filtro_estado == 'Pendiente' %}selected{% endif %}>
+                    Pendientes
+                </option>
+
+                <option value="Completado"
+                    {% if filtro_estado == 'Completado' %}selected{% endif %}>
+                    Completados
+                </option>
+
+                <option value="Vencido"
+                    {% if filtro_estado == 'Vencido' %}selected{% endif %}>
+                    Vencidos
+                </option>
+            </select>
+
+            <button type="submit">Consultar</button>
+        </form>
+    </section>
+
+    <section class="welcome">
+        <h2>Resultados del seguimiento</h2>
+
+        {% if mantenimientos %}
+        <div class="tabla-contenedor">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Código</th>
+                        <th>Equipo</th>
+                        <th>Fecha programada</th>
+                        <th>Descripción</th>
+                        <th>Estado</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for mantenimiento in mantenimientos %}
+                    <tr>
+                        <td>{{ mantenimiento.equipo.codigo }}</td>
+                        <td>{{ mantenimiento.equipo.nombre }}</td>
+                        <td>
+                            {{ mantenimiento.fecha_programada.strftime('%d/%m/%Y') }}
+                        </td>
+                        <td>{{ mantenimiento.descripcion }}</td>
+                        <td>
+                            {% if mantenimiento.estado == 'Pendiente'
+                                  and mantenimiento.fecha_programada < hoy %}
+                                Vencido
+                            {% else %}
+                                {{ mantenimiento.estado }}
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+            <p>No se encontraron mantenimientos para el filtro seleccionado.</p>
+        {% endif %}
+    </section>
+</main>
+
+<footer>
+    <p>ManteniSoft - Proyecto académico 2026</p>
+</footer>
+
+</body>
+</html>
