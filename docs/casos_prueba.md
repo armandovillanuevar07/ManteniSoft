@@ -213,3 +213,47 @@ cobertura de sentencias).
   necesariamente a cobertura de ramas.
 - Los resultados documentados corresponden a las aserciones implementadas
   en las pruebas automatizadas.
+
+## 6. Análisis de resultados y recomendaciones de mejora
+### Análisis de los ocho casos de prueba
+Los ocho casos de prueba documentados obtuvieron resultados satisfactorios. Estos forman parte de un conjunto de 23 pruebas automatizadas, todas aprobadas en la última ejecución registrada. Asimismo, el proyecto alcanzó una cobertura del 100 % de sentencias, equivalente a 131 de 131 sentencias ejecutadas.
+
+- CP-01: Se verificó el registro correcto de un equipo con todos los datos obligatorios.
+- CP-02: Se comprobó que el sistema muestra un mensaje de validación cuando existen campos vacíos.
+- CP-03: Se verificó que el sistema detecta códigos de equipos duplicados.
+- CP-04: Se comprobó la programación correcta de un mantenimiento para un equipo registrado.
+- CP-05: Se verificó que el sistema identifica fechas con formato inválido.
+- CP-06: Se comprobó el cambio de estado de un mantenimiento de Pendiente a Completado.
+- CP-07: Se verificó que el módulo de seguimiento muestra todos los mantenimientos registrados.
+- CP-08: Se comprobó que el filtro Vencido muestra únicamente los mantenimientos pendientes con fechas anteriores a la actual.
+
+Los resultados indican que las funcionalidades evaluadas cumplen con el comportamiento esperado en los escenarios definidos.
+
+### Identificación de las funcionalidades críticas
+Se identificaron cuatro funcionalidades críticas para el funcionamiento del sistema:
+- Registro de equipos: permite almacenar los equipos y evita registros incompletos o duplicados.
+- Programación de mantenimientos: permite organizar las actividades de mantenimiento y validar las fechas ingresadas.
+- Finalización de mantenimientos: permite actualizar el estado de las actividades realizadas.
+- Seguimiento de mantenimientos: permite consultar los registros e identificar los mantenimientos vencidos.
+
+Estas funcionalidades son esenciales porque permiten mantener un control adecuado de los equipos y sus actividades de mantenimiento.
+
+### Limitaciones de las pruebas actuales
+Aunque los ocho casos fueron aprobados, las pruebas presentan algunas limitaciones:
+- No se evalúa la edición o eliminación de equipos y mantenimientos.
+- No se comprueba el comportamiento del sistema ante solicitudes simultáneas.
+- No se realizan pruebas de rendimiento con grandes cantidades de registros.
+- No se evalúan aspectos de seguridad, como el acceso no autorizado.
+- No se comprueba el comportamiento ante fallos de conexión o errores de base de datos.
+
+Por lo tanto, los resultados satisfactorios no garantizan que el sistema esté libre de errores en escenarios diferentes a los evaluados.
+
+### Recomendaciones de mejora para futuras versiones
+Se recomienda implementar las siguientes mejoras:
+- Ampliar los casos de prueba: incluir escenarios de edición, eliminación y validación de datos adicionales.
+- Incorporar pruebas de seguridad: verificar que únicamente los usuarios autorizados puedan modificar información.
+- Realizar pruebas de rendimiento: evaluar el funcionamiento del sistema con un mayor volumen de equipos y mantenimientos.
+- Mejorar el manejo de errores: comprobar las respuestas ante fallos de conexión, base de datos y solicitudes incorrectas.
+- Fortalecer la automatización: ampliar el proceso actual de integración continua mediante GitHub Actions y evaluar la incorporación de despliegue automatizado en futuras versiones.
+
+Estas mejoras permitirán aumentar la cobertura de pruebas, detectar errores oportunamente y mejorar la confiabilidad del sistema en futuras versiones.
