@@ -1,6 +1,6 @@
 
 from flask import Blueprint, render_template, request, redirect, url_for, flash
-from datetime import datetime
+from datetime import datetime, date
 from sqlalchemy.exc import IntegrityError
 from app.models import db, Equipo, Mantenimiento
 
@@ -149,3 +149,42 @@ def completar_mantenimiento(id):
     flash('Mantenimiento marcado como completado.', 'success')
 
     return redirect(url_for('main.mantenimientos'))
+
+@main.route('/seguimiento')
+def seguimiento():
+    hoy = date.today()
+
+    filtro_estado = request.args.get('estado', 'Todos')
+
+    consulta = Mantenimiento.query.join(Equipo)
+
+    if filtro_estado == 'Pendiente':
+        consulta = consulta.filter(
+            Mantenimiento.estado == 'Pendiente',
+            Mantenimiento.fecha_programada >= hoy
+        )
+
+    elif filtro_estado == 'Completado':
+        consulta = consulta.filter(
+            Mantenimiento.estado == 'Completado'
+        )
+
+    elif filtro_estado == 'Vencido':
+        consulta = consulta.filter(
+            Mantenimiento.estado == 'Pendiente',
+            Mantenimiento.fecha_programada < hoy
+        )
+
+    else:
+        filtro_estado = 'Todos'
+
+    lista_mantenimientos = consulta.order_by(
+        Mantenimiento.fecha_programada
+    ).all()
+
+    return render_template(
+        'seguimiento.html',
+        mantenimientos=lista_mantenimientos,
+        filtro_estado=filtro_estado,
+        hoy=hoy
+    )
